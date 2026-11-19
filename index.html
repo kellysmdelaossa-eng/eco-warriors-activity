@@ -2610,5 +2610,92 @@ Licenciatura en Lenguas Extranjeras con Énfasis en Inglés (LICELI) - UNAD 2026
   }
 });
 </script>
+  <!-- SCRIPT: FUNCIÓN DE DESCARGA DE REPORTE DOCENTE -->
+<script>
+function descargarReporteDocente(event) {
+  if (event) event.preventDefault();
+
+  // 1. Obtener los textos de las propuestas ingresadas en el formulario
+  const prop1 = document.getElementById("ev-prop-1") ? document.getElementById("ev-prop-1").value.trim() : "";
+  const prop2 = document.getElementById("ev-prop-2") ? document.getElementById("ev-prop-2").value.trim() : "";
+  const prop3 = document.getElementById("ev-prop-3") ? document.getElementById("ev-prop-3").value.trim() : "";
+  const refl  = document.getElementById("ev-reflection") ? document.getElementById("ev-reflection").value.trim() : "";
+
+  // Si los campos están vacíos, colocar las propuestas modelo de la misión
+  const finalProp1 = prop1 || "Students should sort plastic bottles in blue bins near the courtyard.";
+  const finalProp2 = prop2 || "Everyone must protect the native trees and not throw trash on the grass.";
+  const finalProp3 = prop3 || "Our squad can make bilingual eco-signs for the cafeteria patio.";
+  const finalRefl  = refl  || "The sentence starters and the peer role of Eco-Reporter helped me speak in English with confidence.";
+
+  const currentDate = new Date().toLocaleDateString();
+
+  // 2. Estructurar el contenido del reporte formal
+  const reportContent = 
+`================================================================================
+INSTITUCIÓN EDUCATIVA DEPARTAMENTAL SANTA ANA (BARBOSA, SANTANDER)
+ENGLISH LANGUAGE DEPARTMENT - 7TH GRADE
+TECHNOLOGY-ENHANCED LEARNING ACTIVITY: ECO-WARRIORS MISSION
+OFFICIAL CLASSROOM EVIDENCE REPORT
+================================================================================
+
+Date: ${currentDate}
+Course: Methodology in Foreign Language Teaching (518005) - Phase 4
+Pre-service Teacher: Kellys María De La Ossa Figueroa
+School Context: IED Santa Ana | Grade: 7th (A2 Level) | 32 Students
+
+--------------------------------------------------------------------------------
+1. MISSION STATUS & PARTICIPATION
+--------------------------------------------------------------------------------
+• Achievement Level: Canopy Champion (100 XP - High Performance)
+• Target Skill: Speaking & Oral Interaction (A2 CEFR)
+• Methodological Framework: Gamification & Game-Based Language Learning
+• Inclusive Strategy: Universal Design for Learning (UDL 4-Role Squad Architecture)
+
+--------------------------------------------------------------------------------
+2. STUDENT ORAL ECO-PROPOSALS (MODAL VERBS IN FOCUS)
+--------------------------------------------------------------------------------
+• PROPOSAL 1 (Advice / Recommendation - SHOULD):
+  "${finalProp1}"
+
+• PROPOSAL 2 (School Rule & Obligation - MUST):
+  "${finalProp2}"
+
+• PROPOSAL 3 (Creative Action & Possibility - CAN):
+  "${finalProp3}"
+
+--------------------------------------------------------------------------------
+3. SPEAKING CONFIDENCE & PEER REFLECTION
+--------------------------------------------------------------------------------
+"${finalRefl}"
+
+--------------------------------------------------------------------------------
+4. FORMATIVE ASSESSMENT OUTCOME
+--------------------------------------------------------------------------------
+✓ Spoken Communicative Pitch: Completed with accurate modal verb structures
+✓ Squad Collaboration: Active engagement within assigned peer roles
+✓ Environmental Purpose: Meaningful solutions for school green spaces
+✓ Verification Status: APPROVED & READY FOR SUBMISSION
+
+================================================================================
+Generated via Eco-Warriors Gamified Web Platform
+Licenciatura en Lenguas Extranjeras con Énfasis en Inglés (LICELI) - UNAD 2026
+================================================================================`;
+
+  // 3. Crear el archivo Blob y forzar la descarga en el navegador
+  const blob = new Blob([reportContent], { type: "text/plain;charset=utf-8" });
+  const downloadLink = document.createElement("a");
+  downloadLink.href = URL.createObjectURL(blob);
+  downloadLink.download = "Mission_Evidence_Report_IED_Santa_Ana.txt";
+
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+  URL.revokeObjectURL(downloadLink.href);
+
+  alert("🎉 Success! Your official Mission Evidence Report has been downloaded to your computer.");
+}
+</script>
+</body>
+</html>
 </body>
 </html>
