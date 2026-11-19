@@ -1,0 +1,2512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="canopy">
+  <title>Eco-Warriors Mission: Protecting Santa Ana’s Green Spaces</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (earth strata - Canopy) */
+      --background: #faf6ef;
+      --surface-container-low: #f0eae0;
+      --surface-container: #e8e0d2;
+      --surface-container-high: #ddd3c2;
+
+      /* Ink */
+      --on-surface: #2a302b;
+      --on-surface-variant: #4a524b;
+
+      /* Lines */
+      --outline: #737872;
+      --outline-variant: #cbc5b8;
+
+      /* Accents */
+      --primary: #366948;
+      --on-primary: #ffffff;
+      --primary-container: #d8efe0;
+      --on-primary-container: #1f4d30;
+      --secondary: #5c635c;
+      --tertiary: #8f5822;
+      --tertiary-container: #f2d4a7;
+      --on-tertiary-container: #6e3f0c;
+      --error: #b83230;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #366948;
+      --data-2: #8f5822;
+      --data-3: #a85438;
+      --data-4: #4b6b78;
+      --data-context: #b5b0a3;
+
+      /* Semantic & Focus */
+      --positive: #2d6a4f;
+      --positive-container: #d8efe0;
+      --warning: #9a5b13;
+      --warning-container: #f7e1bc;
+      --error-container: #f8dada;
+      --focus: #366948;
+
+      /* Fonts */
+      --font-headline: 'Literata', serif;
+      --font-body: 'Nunito Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.625rem;
+      --rounded-lg: 1rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --shadow-soft: 0 4px 20px rgb(42 48 43 / 0.06);
+      --shadow-soft-hover: 0 8px 28px rgb(42 48 43 / 0.09);
+      --border-soft: 1px solid rgb(203 197 184 / 0.65);
+      --focus-glow: 0 0 0 4px rgb(54 105 72 / 0.18);
+
+      /* Narrative Type Scale */
+      --display-size: clamp(2.35rem, 1.4rem + 3.4vw, 3.85rem);
+      --headline-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.25rem);
+      --subhead-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4rem);
+      --body-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1160px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+      font-weight: 600;
+    }
+    .display-title {
+      font-size: var(--display-size);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      font-weight: 600;
+      max-width: 22ch;
+    }
+    .section-heading {
+      font-size: var(--headline-size);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-sm);
+    }
+    .subhead {
+      font-family: var(--font-headline);
+      font-size: var(--subhead-size);
+      line-height: 1.3;
+      font-weight: 600;
+    }
+    .kicker {
+      font-family: var(--font-body);
+      font-size: var(--label-size);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--tertiary);
+      display: inline-block;
+      margin-bottom: var(--space-xs);
+    }
+    .mono-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+    }
+    .prose {
+      max-width: 65ch;
+      color: var(--on-surface-variant);
+      margin: 0;
+    }
+    .lead-prose {
+      max-width: 64ch;
+      font-size: var(--subhead-size);
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      margin: var(--space-md) 0 0 0;
+    }
+
+    /* Cards (Canopy earth-stratum layers) */
+    .card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      border: 0;
+    }
+    .card.is-interactive {
+      box-shadow: var(--shadow-soft);
+      transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+    .card.is-interactive:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft-hover);
+    }
+    .card.is-leaf-highlight {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      box-shadow: var(--shadow-soft);
+    }
+    .card.is-leaf-highlight h2,
+    .card.is-leaf-highlight h3,
+    .card.is-leaf-highlight .mono-label {
+      color: var(--on-primary-container);
+    }
+
+    /* Section pacing */
+    .mission-section {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: var(--border-soft);
+    }
+    .mission-section.no-border {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    /* Canopy Almanac Phase Strip */
+    .season-strip {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .season-cells {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .season-cell {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      padding: var(--space-xs) var(--space-sm);
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      border-radius: var(--space-xs);
+      background: var(--surface-container-high);
+      color: var(--secondary);
+      text-decoration: none;
+      cursor: pointer;
+      border: 0;
+      transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .season-cell:hover {
+      transform: translateY(-1px);
+    }
+    .season-cell.is-prep {
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      font-weight: 700;
+    }
+    .season-cell.is-peak {
+      background: var(--primary);
+      color: var(--on-primary);
+      font-weight: 700;
+    }
+
+    /* Asymmetric grids */
+    .split-asymmetric {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .split-balanced {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .stat-stack {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .stat-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .stat-figure {
+      font-family: var(--font-headline);
+      font-size: clamp(1.75rem, 1.4rem + 1vw, 2.35rem);
+      font-weight: 600;
+      font-variant-numeric: lining-nums tabular-nums;
+      line-height: 1.1;
+      color: var(--primary);
+    }
+    .stat-caption {
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Buttons & Controls */
+    .btn {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: var(--rounded);
+      padding: 0.65rem 1.15rem;
+      min-height: 44px;
+      border: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: transform var(--dur-micro) var(--ease-out), background-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-soft);
+    }
+    .btn-primary:hover:not(:disabled) {
+      box-shadow: var(--shadow-soft-hover);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: var(--surface-container);
+      color: var(--on-surface);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--surface-container-high);
+    }
+    .btn-tertiary {
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+    }
+    .btn-tertiary:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+    .btn-sm {
+      min-height: 44px;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.875rem;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    /* Form Controls with visible labels above */
+    .field-group {
+      display: grid;
+      gap: var(--space-xs);
+    }
+    .field-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+    }
+    .field-input, .field-select, .field-textarea {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--on-surface);
+      background: var(--background);
+      border: var(--border-soft);
+      border-radius: var(--rounded);
+      padding: 0.65rem 0.9rem;
+      min-height: 44px;
+      width: 100%;
+      transition: box-shadow var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+    .field-select {
+      padding-right: 2.25rem;
+    }
+    .field-textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+    .field-input:focus, .field-select:focus, .field-textarea:focus {
+      outline: none;
+      box-shadow: var(--focus-glow);
+    }
+    .controls-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+    }
+
+    /* Tags & Badges */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--rounded-full);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tag-ochre {
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+    }
+    .tag-leaf {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .tag-stone {
+      background: var(--surface-container-high);
+      color: var(--on-surface-variant);
+    }
+
+    /* Player HUD & XP Bar */
+    .hud-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr);
+      gap: var(--space-lg);
+      align-items: center;
+    }
+    .xp-track {
+      width: 100%;
+      height: 14px;
+      background: var(--background);
+      border-radius: var(--rounded-full);
+      overflow: hidden;
+      margin: var(--space-sm) 0;
+    }
+    .xp-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      border-radius: var(--rounded-full);
+      transition: width var(--dur-long) var(--ease-out);
+    }
+    .badges-shelf {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .badge-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--rounded-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      background: var(--background);
+      color: var(--secondary);
+      opacity: 0.65;
+      transition: transform var(--dur-short) var(--ease-out), opacity var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+    .badge-chip.is-unlocked {
+      background: var(--primary);
+      color: var(--on-primary);
+      opacity: 1;
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* Filter Chips */
+    .chip-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .filter-chip {
+      min-height: 44px;
+      padding: 0.45rem 0.95rem;
+      border-radius: var(--rounded-full);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      border: 0;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .filter-chip:hover {
+      background: var(--surface-container-high);
+      transform: translateY(-1px);
+    }
+    .filter-chip.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+
+    /* Vocab Deck */
+    .vocab-card {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+      box-shadow: var(--shadow-soft);
+      transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+    .vocab-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft-hover);
+    }
+    .vocab-stress {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--tertiary);
+    }
+
+    /* Quiz / Pre-Class Challenge */
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      min-height: 44px;
+      border-radius: var(--rounded);
+      background: var(--background);
+      color: var(--on-surface);
+      border: var(--border-soft);
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option:hover:not(:disabled) {
+      background: var(--surface-container-high);
+    }
+    .quiz-option.is-correct {
+      background: var(--positive-container);
+      color: var(--on-primary-container);
+      box-shadow: var(--focus-glow);
+    }
+    .quiz-option.is-wrong {
+      background: var(--error-container);
+      color: var(--error);
+    }
+    .quiz-feedback {
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.95rem;
+      display: none;
+    }
+    .quiz-feedback.is-visible { display: block; }
+    .quiz-feedback.is-positive {
+      background: var(--positive-container);
+      color: var(--on-primary-container);
+    }
+    .quiz-feedback.is-warning {
+      background: var(--warning-container);
+      color: var(--on-tertiary-container);
+    }
+
+    /* Campus Vector Map SVG */
+    .campus-map-wrap {
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      box-shadow: var(--shadow-soft);
+    }
+    .campus-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--rounded);
+      background: var(--background);
+    }
+    .map-zone {
+      cursor: pointer;
+      transition: opacity var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .map-zone:hover .zone-shape {
+      fill: var(--tertiary-container);
+    }
+    .map-zone.is-selected .zone-shape {
+      fill: var(--primary-container);
+      stroke: var(--primary);
+      stroke-width: 3;
+    }
+    .map-zone.is-done .zone-badge {
+      fill: var(--primary);
+    }
+
+    /* Timer Box */
+    .timer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background: var(--background);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      font-family: var(--font-label);
+      font-size: 1.05rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Leaderboard Bars */
+    .squad-row {
+      display: grid;
+      grid-template-columns: minmax(120px, 1.1fr) minmax(120px, 2fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      background: var(--background);
+    }
+    .squad-row.is-user-squad {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .squad-bar-track {
+      height: 12px;
+      background: var(--surface-container-high);
+      border-radius: var(--rounded-full);
+      overflow: hidden;
+    }
+    .squad-bar-fill {
+      height: 100%;
+      background: var(--data-1);
+      border-radius: var(--rounded-full);
+      transition: width var(--dur-long) var(--ease-out);
+    }
+    .squad-row.is-alt .squad-bar-fill {
+      background: var(--data-2);
+    }
+
+    /* Sentence Forge Preview */
+    .sentence-stage {
+      background: var(--background);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      border: var(--border-soft);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .forged-sentence {
+      font-family: var(--font-headline);
+      font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem);
+      line-height: 1.35;
+      color: var(--on-surface);
+    }
+    .modal-highlight {
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      padding: 0.1rem 0.45rem;
+      border-radius: var(--space-xs);
+    }
+
+    /* Rubric Table */
+    .rubric-table-wrap {
+      overflow-x: auto;
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+    }
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 680px;
+    }
+    .rubric-table th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--border-soft);
+    }
+    .rubric-table td {
+      padding: var(--space-sm);
+      border-bottom: var(--border-soft);
+      vertical-align: top;
+    }
+    .rubric-cell-btn {
+      width: 100%;
+      min-height: 76px;
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      background: var(--background);
+      color: var(--on-surface-variant);
+      border: var(--border-soft);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      line-height: 1.45;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .rubric-cell-btn:hover {
+      background: var(--surface-container-high);
+    }
+    .rubric-cell-btn.is-picked {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-weight: 700;
+      box-shadow: var(--focus-glow);
+    }
+
+    /* Inline status toast */
+    .status-banner {
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: none;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .status-banner.is-visible { display: inline-flex; }
+
+    /* Container queries for component cards */
+    .card-wrapper { container-type: inline-size; }
+    @container (min-width: 440px) {
+      .card-inner-split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-md);
+      }
+    }
+    @container (max-width: 439px) {
+      .card-inner-split {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+    }
+
+    /* Responsive mobile layout */
+    @media (max-width: 820px) {
+      .split-asymmetric, .split-balanced, .hud-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .squad-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-xs);
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Scroll reveal */
+    .reveal-item {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal-item.is-hidden {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+
+    <!-- 1. TITLE, CONTEXT & LIVE MISSION HUD -->
+    <header class="mission-section no-border">
+      <div>
+        <span class="kicker">IED Santa Ana · Barbosa, Santander · Teacher Ana María</span>
+        <h1 class="display-title">Eco-Warriors Mission: Protecting Santa Ana’s Green Spaces</h1>
+        <p class="lead-prose">
+          A gamified 7th-grade EFL speaking quest for 32 explorers (ages 12–14, CEFR A2). Collaborate in squads, master environmental vocabulary, and speak with confidence using <strong>should</strong>, <strong>must</strong>, and <strong>can</strong>.
+        </p>
+      </div>
+
+      <!-- Canopy Almanac Progress Strip -->
+      <nav class="season-strip" aria-label="Mission Checkpoints">
+        <span class="mono-label">Mission Almanac</span>
+        <div class="season-cells" id="almanac-strip">
+          <button type="button" class="season-cell is-prep" onclick="jumpToSection('sec-context')" data-step="0">01 BRIEF</button>
+          <button type="button" class="season-cell" onclick="jumpToSection('sec-preclass')" data-step="1">02 PRE-CLASS</button>
+          <button type="button" class="season-cell" onclick="jumpToSection('sec-stations')" data-step="2">03 STATIONS</button>
+          <button type="button" class="season-cell" onclick="jumpToSection('sec-udl')" data-step="3">04 UDL CARDS</button>
+          <button type="button" class="season-cell" onclick="jumpToSection('sec-rubric')" data-step="4">05 RUBRIC</button>
+          <button type="button" class="season-cell" onclick="jumpToSection('sec-evidence')" data-step="5">06 EVIDENCE</button>
+        </div>
+      </nav>
+
+      <!-- Single Pale-Leaf Highlight Card: Player Profile & Live Game Mechanics -->
+      <section class="card is-leaf-highlight" aria-label="Eco-Warrior Command Deck">
+        <div class="hud-grid">
+          <div class="stat-stack">
+            <div class="btn-row" style="justify-content: space-between;">
+              <span class="mono-label">Eco-Warrior Command Deck</span>
+              <span class="tag tag-ochre" id="hud-level-tag">Level 1 · Seedling Recruit</span>
+            </div>
+            <div class="controls-row">
+              <div class="field-group">
+                <label class="field-label" for="player-name-input">Explorer Name</label>
+                <input id="player-name-input" class="field-input" type="text" placeholder="Type your name" oninput="updatePlayerProfile()">
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="squad-select">Squad (8 Teams of 4)</label>
+                <select id="squad-select" class="field-select" onchange="updatePlayerProfile()">
+                  <option value="0">Squad 1: Guayacán</option>
+                  <option value="1">Squad 2: Roble</option>
+                  <option value="2">Squad 3: Yarumo</option>
+                  <option value="3">Squad 4: Ceiba</option>
+                  <option value="4">Squad 5: Orquídea</option>
+                  <option value="5">Squad 6: Arrayán</option>
+                  <option value="6">Squad 7: Guadua</option>
+                  <option value="7">Squad 8: Colibrí</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="btn-row" style="justify-content: space-between;">
+              <strong id="hud-xp-display" style="font-family: var(--font-label); font-size: 1.05rem;">0 / 600 XP</strong>
+              <span id="hud-next-level" class="mono-label">150 XP to Trail Guardian</span>
+            </div>
+            <div class="xp-track" role="progressbar" aria-valuemin="0" aria-valuemax="600" aria-valuenow="0" id="xp-progressbar">
+              <div class="xp-fill" id="xp-fill"></div>
+            </div>
+            <div class="badges-shelf" id="badges-shelf" aria-label="Unlockable Mission Badges">
+              <span class="badge-chip" id="badge-recruit"><i data-lucide="shield-check" aria-hidden="true"></i> Recruit</span>
+              <span class="badge-chip" id="badge-modal"><i data-lucide="sparkles" aria-hidden="true"></i> Modal Master</span>
+              <span class="badge-chip" id="badge-scout"><i data-lucide="compass" aria-hidden="true"></i> Field Scout</span>
+              <span class="badge-chip" id="badge-inclusion"><i data-lucide="heart-handshake" aria-hidden="true"></i> Inclusion Ally</span>
+              <span class="badge-chip" id="badge-champion"><i data-lucide="award" aria-hidden="true"></i> Eco-Champion</span>
+            </div>
+          </div>
+        </div>
+        <div class="btn-row" style="margin-top: var(--space-md); justify-content: space-between;">
+          <div id="hud-toast" class="status-banner" role="status" aria-live="polite"></div>
+          <button type="button" class="btn btn-secondary btn-sm" id="reset-progress-btn" onclick="handleResetProgress(this)">
+            <i data-lucide="rotate-ccw" aria-hidden="true"></i> Reset Progress
+          </button>
+        </div>
+      </section>
+    </header>
+
+    <!-- 2. CONTEXT, COMMUNICATIVE OBJECTIVE & LEARNER INSTRUCTIONS -->
+    <section id="sec-context" class="mission-section reveal-item">
+      <div class="split-asymmetric">
+        <div class="card">
+          <span class="kicker">01 · Pedagogical Context & Rationale</span>
+          <h2 class="section-heading">Why Gamification Unlocks Speaking in 7th Grade</h2>
+          <p class="prose">
+            At <strong>IED Santa Ana in Barbosa, Santander</strong>, 7th-grade learners (level A2) often hesitate to speak English aloud when classes center on silent grammar drills. Grounded in <strong>Gamification and Game-Based Learning</strong>, this mission replaces rote translation with meaningful quests, immediate feedback, and team badges.
+          </p>
+          <p class="prose" style="margin-top: var(--space-md);">
+            Following <strong>Self-Determination Theory</strong> (autonomy, competence, and relatedness) and <strong>Krashen’s Affective Filter Hypothesis</strong>, playful team missions lower speaking anxiety while aligning with Colombia’s <strong>MEN Suggested Curriculum &amp; DBA</strong> for environmental citizenship.
+          </p>
+          <div style="margin-top: var(--space-lg); padding-top: var(--space-md); border-top: var(--border-soft);">
+            <span class="kicker">02 · Communicative Learning Objective</span>
+            <p class="prose" style="color: var(--on-surface); font-weight: 700;">
+              By the end of this mission, learners will orally negotiate, propose, and present three actionable eco-solutions to protect IED Santa Ana’s green spaces—using environmental vocabulary and modal verbs (<em>should</em>, <em>must</em>, <em>can</em>) with clarity and collaborative peer support.
+            </p>
+            <div class="btn-row" style="margin-top: var(--space-md);">
+              <span class="tag tag-leaf">Skill: A2 Speaking &amp; Interaction</span>
+              <span class="tag tag-ochre">Grammar: should · must · can</span>
+              <span class="tag tag-stone">Setting: Barbosa Campus Green Zones</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-stack">
+          <div class="stat-card">
+            <span class="mono-label">Classroom Cohort</span>
+            <span class="stat-figure">32 Students</span>
+            <span class="stat-caption">Ages 12–14 · 8 squads of 4 Eco-Warriors</span>
+          </div>
+          <div class="stat-card">
+            <span class="mono-label">Target Proficiency</span>
+            <span class="stat-figure">CEFR A2</span>
+            <span class="stat-caption">Guided oral negotiation &amp; 1-min squad pitches</span>
+          </div>
+          <div class="stat-card">
+            <span class="mono-label">Emerging Methodology</span>
+            <span class="stat-figure">Gamification</span>
+            <span class="stat-caption">XP progression, 5 badges &amp; green-zone quests</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. INSTRUCTIONS FOR LEARNERS -->
+      <div class="card">
+        <span class="kicker">03 · Instructions for Learners</span>
+        <h3 class="subhead">How Your Squad Completes the Mission</h3>
+        <div class="card-grid" style="margin-top: var(--space-md);">
+          <div class="stat-card" style="background: var(--background);">
+            <span class="mono-label">Step 1 · Pre-Class Prep</span>
+            <strong>Earn Your Recruit Badge</strong>
+            <span class="stat-caption">Listen to the 8 eco-terms and pass the 5-question mission briefing before entering class (+150 XP).</span>
+          </div>
+          <div class="stat-card" style="background: var(--background);">
+            <span class="mono-label">Step 2 · Pick a Role</span>
+            <strong>Build a Safe 4-Person Squad</strong>
+            <span class="stat-caption">Choose a flexible role (Scout, Strategist, Time Keeper, or Reporter) so every classmate speaks safely.</span>
+          </div>
+          <div class="stat-card" style="background: var(--background);">
+            <span class="mono-label">Step 3 · Green Stations</span>
+            <strong>Solve Campus Eco-Dilemmas</strong>
+            <span class="stat-caption">Visit Santa Ana’s 4 green stations, run the 3-minute speaking sprint, and discuss ideas with modals.</span>
+          </div>
+          <div class="stat-card" style="background: var(--background);">
+            <span class="mono-label">Step 4 · Pitch &amp; Log</span>
+            <strong>Record &amp; Export Evidence</strong>
+            <span class="stat-caption">Evaluate your speaking with the formative rubric and download your squad’s 3-proposal evidence sheet.</span>
+          </div>
+        </div>
+        <div class="btn-row" style="margin-top: var(--space-md);">
+          <button type="button" class="btn btn-primary" id="briefing-ack-btn" onclick="acknowledgeBriefing()">
+            <i data-lucide="check-circle-2" aria-hidden="true"></i> Accept Mission Briefing (+25 XP)
+          </button>
+          <span class="prose" style="font-size: 0.92rem;">Golden Rule: Errors help us grow—never laugh at a teammate trying English!</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PRE-CLASS PHASE: VOCABULARY & RECRUIT BADGE -->
+    <section id="sec-preclass" class="mission-section reveal-item">
+      <div>
+        <span class="kicker">04 · Pre-Class Phase (Home / Flipped Prep)</span>
+        <h2 class="section-heading">Mission Briefing: Vocabulary Explorer &amp; Recruit Challenge</h2>
+        <p class="prose">
+          Prepare your ears and voice before class. Click <strong>Listen</strong> on each card to practice word stress, then pass the Recruit Challenge below to unlock your first badge.
+        </p>
+      </div>
+
+      <!-- Filterable Vocabulary & Modal Cards -->
+      <div class="chip-bar" role="group" aria-label="Filter Vocabulary Cards">
+        <button type="button" class="filter-chip is-active" onclick="filterVocab('all', this)">All Terms (8)</button>
+        <button type="button" class="filter-chip" onclick="filterVocab('eco', this)">Eco-Actions &amp; Spaces</button>
+        <button type="button" class="filter-chip" onclick="filterVocab('modal', this)">Modal Power-Ups</button>
+      </div>
+
+      <div class="card-grid" id="vocab-grid"></div>
+
+      <!-- Interactive Pre-Class Recruit Challenge -->
+      <div class="card is-interactive">
+        <div class="btn-row" style="justify-content: space-between;">
+          <div>
+            <span class="kicker">Recruit Badge Qualifier</span>
+            <h3 class="subhead">Pre-Class Eco-Decision Challenge (5 Questions)</h3>
+          </div>
+          <span class="tag tag-ochre" id="quiz-score-pill">0 / 5 Correct</span>
+        </div>
+        <p class="prose" style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">
+          Score at least <strong>4 out of 5</strong> to earn <strong>+150 XP</strong> and unlock the <strong>Recruit Badge</strong> for IED Santa Ana.
+        </p>
+        <div id="quiz-container" style="display: grid; gap: var(--space-lg);"></div>
+      </div>
+    </section>
+
+    <!-- 5. IN-CLASS COLLABORATIVE PHASE: CAMPUS GREEN STATIONS, ROLES & LEADERBOARD -->
+    <section id="sec-stations" class="mission-section reveal-item">
+      <div>
+        <span class="kicker">05 · In-Class Collaborative Phase</span>
+        <h2 class="section-heading">Santa Ana Green-Space Challenge Stations</h2>
+        <p class="prose">
+          Select a station on the IED Santa Ana campus map to launch your squad’s oral dilemma. Use the built-in <strong>3-Minute Oral Sprint Timer</strong> so every team member contributes before logging completion.
+        </p>
+      </div>
+
+      <div class="split-balanced">
+        <!-- Custom Vector SVG Map of IED Santa Ana Green Spaces -->
+        <div class="campus-map-wrap">
+          <div class="btn-row" style="justify-content: space-between; margin-bottom: var(--space-sm);">
+            <span class="mono-label">IED Santa Ana Campus Schematic · Barbosa</span>
+            <span class="tag tag-leaf" id="stations-count-tag">0 / 4 Stations Cleared</span>
+          </div>
+          <svg class="campus-svg" viewBox="0 0 520 360" role="img" aria-label="Interactive map of four green spaces at IED Santa Ana">
+            <!-- Campus Grounds Background -->
+            <rect x="10" y="10" width="500" height="340" rx="14" fill="var(--surface-container-low)" stroke="var(--outline-variant)" stroke-width="2" />
+            <!-- Pathways -->
+            <path d="M 260 20 L 260 340 M 20 180 L 500 180" stroke="var(--outline-variant)" stroke-width="6" stroke-dasharray="8 6" />
+            <circle cx="260" cy="180" r="24" fill="var(--surface-container-high)" stroke="var(--outline)" stroke-width="2" />
+            <text x="260" y="184" text-anchor="middle" font-family="Geist Mono, monospace" font-size="10" fill="var(--on-surface)">PATIO</text>
+
+            <!-- Zone 1: Courtyard & Sorting Point -->
+            <g class="map-zone is-selected" id="map-zone-0" onclick="selectStation(0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectStation(0);}" tabindex="0" role="button" aria-label="Station 1: Courtyard Sorting Point">
+              <rect class="zone-shape" x="30" y="30" width="205" height="128" rx="12" fill="var(--background)" stroke="var(--outline)" stroke-width="2" />
+              <circle class="zone-badge" cx="56" cy="56" r="14" fill="var(--tertiary)" />
+              <text x="56" y="60" text-anchor="middle" font-family="Geist Mono, monospace" font-size="12" font-weight="700" fill="var(--on-primary)">01</text>
+              <text x="80" y="60" font-family="Nunito Sans, sans-serif" font-size="13" font-weight="700" fill="var(--on-surface)">Courtyard Bins</text>
+              <text x="44" y="92" font-family="Nunito Sans, sans-serif" font-size="11.5" fill="var(--on-surface-variant)">Mixed waste &amp; sorting</text>
+              <text x="44" y="112" font-family="Geist Mono, monospace" font-size="10.5" fill="var(--primary)">Focus: SHOULD / MUST</text>
+              <text x="44" y="138" font-family="Geist Mono, monospace" font-size="10" fill="var(--tertiary)">+100 XP ORAL QUEST</text>
+            </g>
+
+            <!-- Zone 2: Native Tree & Garden -->
+            <g class="map-zone" id="map-zone-1" onclick="selectStation(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectStation(1);}" tabindex="0" role="button" aria-label="Station 2: Native Tree and Orchard Garden">
+              <rect class="zone-shape" x="285" y="30" width="205" height="128" rx="12" fill="var(--background)" stroke="var(--outline)" stroke-width="2" />
+              <circle class="zone-badge" cx="311" cy="56" r="14" fill="var(--tertiary)" />
+              <text x="311" y="60" text-anchor="middle" font-family="Geist Mono, monospace" font-size="12" font-weight="700" fill="var(--on-primary)">02</text>
+              <text x="335" y="60" font-family="Nunito Sans, sans-serif" font-size="13" font-weight="700" fill="var(--on-surface)">Tree &amp; Garden</text>
+              <text x="299" y="92" font-family="Nunito Sans, sans-serif" font-size="11.5" fill="var(--on-surface-variant)">Soil care &amp; biodiversity</text>
+              <text x="299" y="112" font-family="Geist Mono, monospace" font-size="10.5" fill="var(--primary)">Focus: CAN / SHOULD</text>
+              <text x="299" y="138" font-family="Geist Mono, monospace" font-size="10" fill="var(--tertiary)">+100 XP ORAL QUEST</text>
+            </g>
+
+            <!-- Zone 3: Cafeteria & Plastic-Free Patio -->
+            <g class="map-zone" id="map-zone-2" onclick="selectStation(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectStation(2);}" tabindex="0" role="button" aria-label="Station 3: Cafeteria and Plastic-Free Patio">
+              <rect class="zone-shape" x="30" y="202" width="205" height="128" rx="12" fill="var(--background)" stroke="var(--outline)" stroke-width="2" />
+              <circle class="zone-badge" cx="56" cy="228" r="14" fill="var(--tertiary)" />
+              <text x="56" y="232" text-anchor="middle" font-family="Geist Mono, monospace" font-size="12" font-weight="700" fill="var(--on-primary)">03</text>
+              <text x="80" y="232" font-family="Nunito Sans, sans-serif" font-size="13" font-weight="700" fill="var(--on-surface)">Cafeteria Patio</text>
+              <text x="44" y="264" font-family="Nunito Sans, sans-serif" font-size="11.5" fill="var(--on-surface-variant)">Single-use plastics</text>
+              <text x="44" y="284" font-family="Geist Mono, monospace" font-size="10.5" fill="var(--primary)">Focus: MUST / CAN</text>
+              <text x="44" y="310" font-family="Geist Mono, monospace" font-size="10" fill="var(--tertiary)">+100 XP ORAL QUEST</text>
+            </g>
+
+            <!-- Zone 4: Rainwater & Creek Buffer -->
+            <g class="map-zone" id="map-zone-3" onclick="selectStation(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectStation(3);}" tabindex="0" role="button" aria-label="Station 4: Rainwater and Hillside Buffer">
+              <rect class="zone-shape" x="285" y="202" width="205" height="128" rx="12" fill="var(--background)" stroke="var(--outline)" stroke-width="2" />
+              <circle class="zone-badge" cx="311" cy="228" r="14" fill="var(--tertiary)" />
+              <text x="311" y="232" text-anchor="middle" font-family="Geist Mono, monospace" font-size="12" font-weight="700" fill="var(--on-primary)">04</text>
+              <text x="335" y="232" font-family="Nunito Sans, sans-serif" font-size="13" font-weight="700" fill="var(--on-surface)">Water &amp; Hillside</text>
+              <text x="299" y="264" font-family="Nunito Sans, sans-serif" font-size="11.5" fill="var(--on-surface-variant)">Faucets &amp; creek protection</text>
+              <text x="299" y="284" font-family="Geist Mono, monospace" font-size="10.5" fill="var(--primary)">Focus: MUST / SHOULD</text>
+              <text x="299" y="310" font-family="Geist Mono, monospace" font-size="10" fill="var(--tertiary)">+100 XP ORAL QUEST</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Active Station Detail Panel (Spatial Contiguity right beside map) -->
+        <div class="card is-interactive" id="station-detail-card">
+          <div class="btn-row" style="justify-content: space-between;">
+            <span class="tag tag-ochre" id="st-badge">Station 01</span>
+            <div class="timer-pill" aria-live="polite">
+              <i data-lucide="timer" aria-hidden="true"></i>
+              <span id="timer-display">03:00</span>
+            </div>
+          </div>
+          <h3 class="subhead" id="st-title" style="margin-top: var(--space-sm);">Courtyard Recycling Point</h3>
+          <p class="prose" id="st-dilemma" style="margin-top: var(--space-sm);"></p>
+
+          <div style="margin-top: var(--space-md); padding: var(--space-md); background: var(--background); border-radius: var(--rounded);">
+            <span class="mono-label">Speaking Mission Prompts</span>
+            <ul id="st-prompts" style="margin: var(--space-xs) 0 0 0; padding-left: 1.25rem; color: var(--on-surface);"></ul>
+          </div>
+
+          <div class="btn-row" style="margin-top: var(--space-md);">
+            <button type="button" class="btn btn-secondary btn-sm" id="timer-toggle-btn" onclick="toggleStationTimer()">
+              <i data-lucide="play" aria-hidden="true"></i> Start 3-Min Sprint
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="resetStationTimer()">
+              <i data-lucide="rotate-ccw" aria-hidden="true"></i> Reset Timer
+            </button>
+            <button type="button" class="btn btn-primary" id="complete-station-btn" onclick="toggleCompleteStation()">
+              <i data-lucide="flag" aria-hidden="true"></i> Complete Oral Mission (+100 XP)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flexible Squad Roles (32 Students = 8 Teams of 4) -->
+      <div class="card">
+        <span class="kicker">Inclusive Team Structure (4 Roles per Squad)</span>
+        <h3 class="subhead">Choose Your Flexible Peer Role</h3>
+        <p class="prose" style="margin-top: var(--space-xs);">
+          Every learner brings unique strengths. Rotating or picking a supportive role removes public-speaking pressure while guaranteeing every student speaks in English.
+        </p>
+        <div class="card-grid" id="roles-grid" style="margin-top: var(--space-md);"></div>
+      </div>
+
+      <!-- Live 8-Squad Classroom Scoreboard -->
+      <div class="card">
+        <div class="btn-row" style="justify-content: space-between; margin-bottom: var(--space-md);">
+          <div>
+            <span class="kicker">Live Classroom Game Mechanics</span>
+            <h3 class="subhead">32-Student Squad Leaderboard (Teacher &amp; Peer Tracker)</h3>
+          </div>
+          <span class="mono-label">Your actions add XP to your chosen squad automatically</span>
+        </div>
+        <div id="leaderboard-list" style="display: grid; gap: var(--space-sm);"></div>
+      </div>
+    </section>
+
+    <!-- 6. INCLUSIVE TEACHING STRATEGIES (UDL & VISUAL PHRASE SCAFFOLDING) -->
+    <section id="sec-udl" class="mission-section reveal-item">
+      <div>
+        <span class="kicker">06 · Inclusive Pedagogy &amp; Universal Design for Learning</span>
+        <h2 class="section-heading">UDL Toolkit &amp; Visual Phrase Scaffolding Cards</h2>
+        <p class="prose">
+          Designed so every 7th-grade student at IED Santa Ana—including shy speakers, auditory/visual learners, and those needing extra linguistic scaffolding—can participate and shine without fear.
+        </p>
+      </div>
+
+      <!-- UDL 3 Pillars -->
+      <div class="card-grid">
+        <div class="card">
+          <span class="tag tag-leaf">UDL Principle 1</span>
+          <h3 class="subhead" style="margin-top: var(--space-sm);">Multiple Means of Engagement</h3>
+          <p class="prose" style="margin-top: var(--space-xs);">
+            Gamified quests, choice of campus green stations, and mistake-friendly small squads lower Krashen’s affective filter and nurture autonomy.
+          </p>
+        </div>
+        <div class="card">
+          <span class="tag tag-ochre">UDL Principle 2</span>
+          <h3 class="subhead" style="margin-top: var(--space-sm);">Multiple Means of Representation</h3>
+          <p class="prose" style="margin-top: var(--space-xs);">
+            Visual icons, color-coded modal frames, word-stress marks, spoken audio playback, and optional L1 Spanish cues clarify A2 language demands.
+          </p>
+        </div>
+        <div class="card">
+          <span class="tag tag-stone">UDL Principle 3</span>
+          <h3 class="subhead" style="margin-top: var(--space-sm);">Multiple Means of Expression</h3>
+          <p class="prose" style="margin-top: var(--space-xs);">
+            Students choose supportive peer roles, rehearse with the Speak-Safe Sentence Forge, and co-present in pairs instead of facing solo spotlighting.
+          </p>
+        </div>
+      </div>
+
+      <!-- Scaffolding Cards Controls -->
+      <div class="btn-row" style="justify-content: space-between;">
+        <div class="chip-bar" role="group" aria-label="Filter Phrase Scaffolding Cards">
+          <button type="button" class="filter-chip is-active" onclick="filterScaffolds('all', this)">All Phrases</button>
+          <button type="button" class="filter-chip" onclick="filterScaffolds('should', this)">Suggest (Should)</button>
+          <button type="button" class="filter-chip" onclick="filterScaffolds('must', this)">Rules (Must)</button>
+          <button type="button" class="filter-chip" onclick="filterScaffolds('can', this)">Action (Can)</button>
+          <button type="button" class="filter-chip" onclick="filterScaffolds('agree', this)">Agree &amp; Support</button>
+        </div>
+        <button type="button" class="btn btn-tertiary btn-sm" id="l1-toggle-btn" onclick="toggleL1Hints()">
+          <i data-lucide="languages" aria-hidden="true"></i> Show A2 Support Hints (ES)
+        </button>
+      </div>
+
+      <div class="card-grid" id="scaffolds-grid"></div>
+
+      <!-- Interactive Speak-Safe Sentence Forge -->
+      <div class="card is-interactive">
+        <span class="kicker">Interactive Speaking Rehearsal</span>
+        <h3 class="subhead">Speak-Safe Sentence Forge (Unlock Modal Master Badge)</h3>
+        <p class="prose" style="margin-top: var(--space-xs); margin-bottom: var(--space-md);">
+          Assemble your oral eco-proposal step by step, listen to the pronunciation model, and save at least <strong>2 custom sentences</strong> (+25 XP each) to earn the <strong>Modal Master Badge</strong>.
+        </p>
+
+        <div class="controls-row">
+          <div class="field-group">
+            <label class="field-label" for="forge-subject">1. Who</label>
+            <select id="forge-subject" class="field-select" onchange="updateForgedSentence()">
+              <option value="Our squad">Our squad</option>
+              <option value="Seventh-grade students">Seventh-grade students</option>
+              <option value="The Santa Ana community">The Santa Ana community</option>
+              <option value="Everyone at school">Everyone at school</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="forge-modal">2. Modal Verb</label>
+            <select id="forge-modal" class="field-select" onchange="updateForgedSentence()">
+              <option value="should">should (good advice)</option>
+              <option value="must">must (urgent rule)</option>
+              <option value="can">can (real possibility)</option>
+              <option value="must not">must not (stop harm)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="forge-action">3. Eco-Action</label>
+            <select id="forge-action" class="field-select" onchange="updateForgedSentence()">
+              <option value="separate paper and plastic">separate paper and plastic</option>
+              <option value="plant native trees">plant native trees</option>
+              <option value="bring reusable water bottles">bring reusable water bottles</option>
+              <option value="turn off leaking faucets">turn off leaking faucets</option>
+              <option value="drop litter on the grass">drop litter on the grass</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="forge-place">4. Campus Zone</label>
+            <select id="forge-place" class="field-select" onchange="updateForgedSentence()">
+              <option value="in the main courtyard">in the main courtyard</option>
+              <option value="near the school garden">near the school garden</option>
+              <option value="at the cafeteria patio">at the cafeteria patio</option>
+              <option value="around the hillside creek">around the hillside creek</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sentence-stage" style="margin-top: var(--space-md);">
+          <span class="mono-label">Your Rehearsal Sentence</span>
+          <div class="forged-sentence" id="forged-preview"></div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="speakForgedSentence()">
+              <i data-lucide="volume-2" aria-hidden="true"></i> Hear Model Pronunciation
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="saveForgedSentence()">
+              <i data-lucide="bookmark-plus" aria-hidden="true"></i> Save to Speaking Script (+25 XP)
+            </button>
+            <span class="mono-label" id="forged-count-label">0 / 2 Saved for Badge</span>
+          </div>
+          <ul id="saved-sentences-list" style="margin: 0; padding-left: 1.25rem; color: var(--on-surface-variant);"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FORMATIVE ASSESSMENT RUBRIC & EVIDENCE COLLECTION -->
+    <section id="sec-rubric" class="mission-section reveal-item">
+      <div class="btn-row" style="justify-content: space-between;">
+        <div>
+          <span class="kicker">07 · Formative Assessment for Speaking</span>
+          <h2 class="section-heading">Eco-Warrior Speaking Rubric</h2>
+          <p class="prose">
+            Click one descriptor per row to evaluate speaking performance. Real-time non-graded feedback guides improvement before final pitches.
+          </p>
+        </div>
+        <div class="chip-bar" role="group" aria-label="Rubric Evaluation Mode">
+          <button type="button" class="filter-chip is-active" onclick="setRubricMode('Self-Assessment', this)">Self-Check</button>
+          <button type="button" class="filter-chip" onclick="setRubricMode('Peer / Teacher Feedback', this)">Peer / Teacher Check</button>
+        </div>
+      </div>
+
+      <div class="rubric-table-wrap">
+        <table class="rubric-table">
+          <thead>
+            <tr>
+              <th>Speaking Criterion</th>
+              <th>Seed (1 pt)</th>
+              <th>Sprout (2 pts)</th>
+              <th>Sapling (3 pts)</th>
+              <th>Canopy Champion (4 pts)</th>
+            </tr>
+          </thead>
+          <tbody id="rubric-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="card is-interactive" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md);">
+        <div>
+          <span class="mono-label" id="rubric-mode-label">Mode: Self-Assessment</span>
+          <div class="stat-figure" id="rubric-score-display">0 / 16 pts</div>
+        </div>
+        <p class="prose" id="rubric-feedback-text">Select one level in each of the 4 criteria rows above to calculate your formative speaking summary.</p>
+      </div>
+    </section>
+
+    <!-- 8. LEARNING EVIDENCE COLLECTOR & EXPORT -->
+    <section id="sec-evidence" class="mission-section reveal-item">
+      <div>
+        <span class="kicker">08 · Learning Evidence Collection</span>
+        <h2 class="section-heading">Squad Eco-Campaign Evidence Log</h2>
+        <p class="prose">
+          Document your squad’s three spoken eco-proposals for Teacher Ana María and export a complete Mission Evidence Report.
+        </p>
+      </div>
+
+      <div class="split-balanced">
+        <div class="card" style="display: grid; gap: var(--space-md);">
+          <div class="field-group">
+            <label class="field-label" for="ev-prop-1">Proposal 1 (Using SHOULD)</label>
+            <input id="ev-prop-1" class="field-input" type="text" placeholder="Example: Students should sort plastic bottles in blue bins." oninput="updateEvidence()">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="ev-prop-2">Proposal 2 (Using MUST)</label>
+            <input id="ev-prop-2" class="field-input" type="text" placeholder="Example: Everyone must protect the native trees in the garden." oninput="updateEvidence()">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="ev-prop-3">Proposal 3 (Using CAN)</label>
+            <input id="ev-prop-3" class="field-input" type="text" placeholder="Example: Our squad can make bilingual signs for the patio." oninput="updateEvidence()">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="ev-reflection">Speaking Confidence Reflection</label>
+            <textarea id="ev-reflection" class="field-textarea" placeholder="What phrase card or team role helped you speak English today?" oninput="updateEvidence()"></textarea>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" onclick="saveEvidenceLog()">
+              <i data-lucide="file-check-2" aria-hidden="true"></i> Log Evidence &amp; Claim +50 XP
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="exportEvidenceReport()">
+              <i data-lucide="download" aria-hidden="true"></i> Export Evidence (.txt)
+            </button>
+          </div>
+          <span id="evidence-status" class="status-banner" role="status" aria-live="polite"></span>
+        </div>
+
+        <div class="card">
+          <span class="mono-label">Live Mission Evidence Preview</span>
+          <h3 class="subhead" style="margin-top: var(--space-xs);">IED Santa Ana · Green Space Action Card</h3>
+          <div id="evidence-preview-box" style="margin-top: var(--space-md); display: grid; gap: var(--space-sm); color: var(--on-surface-variant);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOURCES NOTE -->
+    <footer class="mission-section" style="padding-bottom: var(--space-xl);">
+      <p class="prose" style="font-size: 0.9rem;">
+        <strong>Pedagogical &amp; Theoretical Grounding:</strong> Designed for UNAD Course 518005 (Methodology in Foreign Language Teaching, Phase 4). Grounded in gamification mechanics and game-based language learning frameworks (Deterding, Dixon, Khaled, &amp; Nacke; Werbach &amp; Hunter; Figueroa Flores; Al-Dosakee &amp; Ozdamli), Self-Determination Theory (Ryan &amp; Deci), Krashen’s Affective Filter Hypothesis, real-time formative assessment (Black &amp; Wiliam; Dicheva et al.), Universal Design for Learning and inclusive pedagogy (Florian &amp; Linklater; Florian &amp; Spratt), and Colombia’s Ministerio de Educación Nacional Basic Standards and Derechos Básicos de Aprendizaje (MEN).
+      </p>
+    </footer>
+
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    const VOCAB_DATA = [
+      {
+        id: `v1`,
+        category: `eco`,
+        term: `Single-use plastic`,
+        stress: `SIN-gle-use PLAS-tic`,
+        meaning: `Plastic bags, cups, or straws used once and thrown away.`,
+        example: `We should avoid single-use plastic in our school cafeteria.`
+      },
+      {
+        id: `v2`,
+        category: `eco`,
+        term: `Recycling bins`,
+        stress: `re-CY-cling BINS`,
+        meaning: `Color-coded containers for separating paper, plastic, and organic waste.`,
+        example: `Students must put clean bottles inside the blue recycling bins.`
+      },
+      {
+        id: `v3`,
+        category: `eco`,
+        term: `Water conservation`,
+        stress: `WA-ter con-ser-VA-tion`,
+        meaning: `Saving water and preventing leaks in bathrooms and gardens.`,
+        example: `Our squad can lead a water conservation patrol near the patio.`
+      },
+      {
+        id: `v4`,
+        category: `eco`,
+        term: `Biodiversity`,
+        stress: `bi-o-di-VER-si-ty`,
+        meaning: `The variety of native trees, birds, and insects around Santa Ana.`,
+        example: `We must protect local biodiversity in Barbosa’s hillside gardens.`
+      },
+      {
+        id: `v5`,
+        category: `eco`,
+        term: `Compost garden`,
+        stress: `COM-post GAR-den`,
+        meaning: `A green area where fruit peels turn into rich soil for plants.`,
+        example: `We can create a compost garden behind the 7th-grade block.`
+      },
+      {
+        id: `v6`,
+        category: `modal`,
+        term: `Should / Shouldn’t`,
+        stress: `Modal of Advice`,
+        meaning: `Used to give friendly, smart recommendations to classmates.`,
+        example: `We should reuse notebooks, and we shouldn’t waste paper.`
+      },
+      {
+        id: `v7`,
+        category: `modal`,
+        term: `Must / Mustn’t`,
+        stress: `Modal of Urgent Rule`,
+        meaning: `Used for strong obligations that protect health and nature.`,
+        example: `Everyone must respect the trees; we mustn’t break branches.`
+      },
+      {
+        id: `v8`,
+        category: `modal`,
+        term: `Can`,
+        stress: `Modal of Possibility`,
+        meaning: `Used to express practical actions our squad is able to do today.`,
+        example: `Our team can paint eco-signs in English during art hour.`
+      }
+    ];
+
+    const QUIZ_DATA = [
+      {
+        id: `q1`,
+        prompt: `1. You see classmates throwing juice bottles on the courtyard grass. What urgent rule fits best?`,
+        options: [
+          `Students must put plastic bottles in the recycling bins.`,
+          `Students can throw bottles near the garden.`,
+          `Students should forget the courtyard waste.`
+        ],
+        correct: 0,
+        explanation: `"Must" expresses an essential rule to stop littering, paired with "recycling bins".`
+      },
+      {
+        id: `q2`,
+        prompt: `2. Your squad wants to offer a friendly suggestion for the cafeteria patio.`,
+        options: [
+          `We mustn’t drink water at school.`,
+          `We should bring reusable bottles instead of single-use plastic.`,
+          `We can drop food wrappers under the benches.`
+        ],
+        correct: 1,
+        explanation: `"Should" gives constructive advice, and "single-use plastic" names the exact issue.`
+      },
+      {
+        id: `q3`,
+        prompt: `3. Which sentence uses "can" to describe a realistic action your 7th-grade team can do this week?`,
+        options: [
+          `Our squad can make bilingual labels for the compost garden.`,
+          `Our squad must flying to another city.`,
+          `Our squad shoulding clean the hillside.`
+        ],
+        correct: 0,
+        explanation: `After modal verbs like "can", use the base verb ("make"), never "-ing" or "to".`
+      },
+      {
+        id: `q4`,
+        prompt: `4. A faucet in the school restroom is dripping water. Choose the correct eco-response.`,
+        options: [
+          `We should leave the faucet open for biodiversity.`,
+          `We must turn off the faucet to support water conservation.`,
+          `We can waste more water after recess.`
+        ],
+        correct: 1,
+        explanation: `Closing leaking taps directly supports water conservation at IED Santa Ana.`
+      },
+      {
+        id: `q5`,
+        prompt: `5. How do you politely agree and add an idea during squad negotiation?`,
+        options: [
+          `Your idea is bad. Be quiet.`,
+          `I agree with you! Also, we can plant two native trees near the fence.`,
+          `Must we no speaking English today?`
+        ],
+        correct: 1,
+        explanation: `Encouraging teammates lowers speaking anxiety and builds collaborative A2 dialogue.`
+      }
+    ];
+
+    const STATIONS_DATA = [
+      {
+        id: 0,
+        badge: `Station 01`,
+        title: `Main Courtyard & Sorting Point`,
+        dilemma: `After break, paper wrappers and plastic bottles are mixed in the courtyard bins. Your squad must agree on 2 sorting rules and 1 creative habit using "should" and "must".`,
+        prompts: [
+          `Describe what you see: "In the courtyard, students..."`,
+          `Give advice: "We should separate..."`,
+          `State a clear rule: "Everyone must use..."`
+        ]
+      },
+      {
+        id: 1,
+        badge: `Station 02`,
+        title: `Native Tree & Orchard Garden`,
+        dilemma: `Young guava and guayacán saplings near the garden have dry soil and trampled borders. Discuss how 7th graders can protect biodiversity here.`,
+        prompts: [
+          `Identify the need: "The garden needs..."`,
+          `Propose teamwork: "Our squad can water..."`,
+          `Set a boundary: "Students must not step on..."`
+        ]
+      },
+      {
+        id: 2,
+        badge: `Station 03`,
+        title: `School Cafeteria & Plastic-Free Patio`,
+        dilemma: `Dozens of single-use plastic straws and bags appear after lunch. Negotiate practical swaps students can bring from home in Barbosa.`,
+        prompts: [
+          `Suggest an alternative: "We should bring..."`,
+          `Explain a possibility: "The cafeteria can offer..."`,
+          `Agree with a peer: "That’s a great point because..."`
+        ]
+      },
+      {
+        id: 3,
+        badge: `Station 04`,
+        title: `Rainwater & Hillside Creek Buffer`,
+        dilemma: `Heavy Santander rains wash litter toward the lower hillside drain. Design an early-warning action plan with "must" and "should".`,
+        prompts: [
+          `State urgency: "We must keep the drain clear so..."`,
+          `Recommend action: "Classes should collect rainwater for..."`,
+          `Assign action: "Our team can inspect..."`
+        ]
+      }
+    ];
+
+    const ROLES_DATA = [
+      {
+        id: `scout`,
+        title: `Field Scout`,
+        icon: `binoculars`,
+        focus: `Visual & Tactile Strength`,
+        task: `Observes the green space and names 2 environmental problems in simple English.`,
+        starter: `"Look here! I see plastic near the trees."`
+      },
+      {
+        id: `strategist`,
+        title: `Modal Strategist`,
+        icon: `sparkles`,
+        focus: `Linguistic Scaffold`,
+        task: `Helps teammates choose between should (advice), must (rule), and can (action).`,
+        starter: `"Let’s use MUST for this safety rule!"`
+      },
+      {
+        id: `keeper`,
+        title: `Inclusion & Time Keeper`,
+        icon: `clock`,
+        focus: `Social & Peer Support`,
+        task: `Watches the 3-minute sprint clock and invites quiet partners to speak.`,
+        starter: `"We have 1 minute left. What do you think?"`
+      },
+      {
+        id: `reporter`,
+        title: `Eco-Reporter`,
+        icon: `mic`,
+        focus: `Oral Synthesis (Solo or Pair)`,
+        task: `Presents the squad’s 30–60s proposal—with a co-presenter if desired!`,
+        starter: `"Our squad proposes that Santa Ana should..."`
+      }
+    ];
+
+    const SCAFFOLDS_DATA = [
+      {
+        id: `s1`,
+        fn: `should`,
+        tag: `Suggest (Should)`,
+        en: `I think we should place labeled recycling bins in the courtyard.`,
+        es: `Creo que deberíamos poner canecas marcadas en el patio.`
+      },
+      {
+        id: `s2`,
+        fn: `should`,
+        tag: `Suggest (Should)`,
+        en: `Students shouldn’t waste clean water when washing hands.`,
+        es: `Los estudiantes no deberían desperdiciar agua limpia.`
+      },
+      {
+        id: `s3`,
+        fn: `must`,
+        tag: `Rule (Must)`,
+        en: `Everyone must protect the native trees in our school garden.`,
+        es: `Todos debemos proteger los árboles nativos del jardín.`
+      },
+      {
+        id: `s4`,
+        fn: `must`,
+        tag: `Rule (Must)`,
+        en: `We mustn’t leave single-use plastic on the hillside.`,
+        es: `No debemos dejar plástico de un solo uso en la ladera.`
+      },
+      {
+        id: `s5`,
+        fn: `can`,
+        tag: `Action (Can)`,
+        en: `Our squad can design colorful English posters for the patio.`,
+        es: `Nuestro equipo puede diseñar carteles coloridos en inglés.`
+      },
+      {
+        id: `s6`,
+        fn: `agree`,
+        tag: `Agree & Support`,
+        en: `I like your idea! Can I add one more suggestion?`,
+        es: `¡Me gusta tu idea! ¿Puedo agregar una sugerencia más?`
+      }
+    ];
+
+    const RUBRIC_ROWS = [
+      {
+        id: `r_modals`,
+        criterion: `1. Modal Verbs (should, must, can)`,
+        levels: [
+          `Rarely uses target modals; relies on isolated words.`,
+          `Uses 1–2 modals with occasional verb form errors.`,
+          `Uses should, must, and can accurately in most proposals.`,
+          `Fluently selects should, must, and can to fit advice, rules, and actions.`
+        ]
+      },
+      {
+        id: `r_vocab`,
+        criterion: `2. Environmental Vocabulary`,
+        levels: [
+          `Uses fewer than 2 eco-terms or switches heavily to L1.`,
+          `Uses 2–3 eco-terms from visual cards with minor hesitation.`,
+          `Applies 4+ campus eco-terms naturally in context.`,
+          `Integrates rich eco-vocabulary accurately across all 3 proposals.`
+        ]
+      },
+      {
+        id: `r_delivery`,
+        criterion: `3. Oral Clarity & Confidence`,
+        levels: [
+          `Very quiet or reads full sentences silently without eye contact.`,
+          `Speaks slowly with pauses; understandable with peer support.`,
+          `Speaks clearly with understandable stress and steady pacing.`,
+          `Delivers an engaging, confident pitch using natural intonation.`
+        ]
+      },
+      {
+        id: `r_inclusion`,
+        criterion: `4. Collaboration & Inclusive Roles`,
+        levels: [
+          `One student dominates while others remain silent.`,
+          `Most teammates contribute brief phrases in their role.`,
+          `All 4 squad members fulfill their role and encourage peers.`,
+          `Exemplary teamwork: actively invites quiet peers and shares speaking time.`
+        ]
+      }
+    ];
+
+    const SQUAD_NAMES = [
+      `Squad 1: Guayacán`,
+      `Squad 2: Roble`,
+      `Squad 3: Yarumo`,
+      `Squad 4: Ceiba`,
+      `Squad 5: Orquídea`,
+      `Squad 6: Arrayán`,
+      `Squad 7: Guadua`,
+      `Squad 8: Colibrí`
+    ];
+
+    let appState = {
+      playerName: ``,
+      squadIndex: 0,
+      briefingAccepted: false,
+      quizAnswers: {},
+      completedStations: [],
+      selectedRole: ``,
+      l1Visible: false,
+      savedSentences: [],
+      rubricMode: `Self-Assessment`,
+      rubricScores: {},
+      evidence: {
+        prop1: ``,
+        prop2: ``,
+        prop3: ``,
+        reflection: ``,
+        logged: false
+      },
+      squadBoardXP: [0, 0, 0, 0, 0, 0, 0, 0]
+    };
+
+    let currentStationIdx = 0;
+    let timerSeconds = 180;
+    let timerInterval = null;
+
+    function computeUserXP() {
+      let xp = 0;
+      if (appState.briefingAccepted) xp += 25;
+      QUIZ_DATA.forEach(q => {
+        if (appState.quizAnswers[q.id] === q.correct) xp += 30;
+      });
+      xp += appState.completedStations.length * 100;
+      if (appState.selectedRole) xp += 25;
+      xp += Math.min(appState.savedSentences.length, 4) * 25;
+      if (appState.evidence.logged) xp += 50;
+      return xp;
+    }
+
+    function computeBadges() {
+      let quizCorrect = 0;
+      QUIZ_DATA.forEach(q => {
+        if (appState.quizAnswers[q.id] === q.correct) quizCorrect += 1;
+      });
+      const rubricDone = Object.keys(appState.rubricScores).length === RUBRIC_ROWS.length;
+      return {
+        recruit: quizCorrect >= 4,
+        modal: appState.savedSentences.length >= 2,
+        scout: appState.completedStations.length >= 2,
+        inclusion: Boolean(appState.selectedRole) && (appState.l1Visible || appState.briefingAccepted),
+        champion: rubricDone && appState.evidence.logged
+      };
+    }
+
+    function showHudToast(msg) {
+      const toast = document.getElementById(`hud-toast`);
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add(`is-visible`);
+      setTimeout(() => {
+        if (toast) toast.classList.remove(`is-visible`);
+      }, 3600);
+    }
+
+    async function persistState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (e) {
+        // Non-fatal in preview
+      }
+    }
+
+    function syncSquadScoreFromUser(deltaXP) {
+      const idx = Number(appState.squadIndex) || 0;
+      if (idx >= 0 && idx < appState.squadBoardXP.length) {
+        appState.squadBoardXP[idx] = Math.max(0, appState.squadBoardXP[idx] + deltaXP);
+      }
+    }
+
+    function renderHUD() {
+      const xp = computeUserXP();
+      const maxXP = 600;
+      const pct = Math.min(100, Math.round((xp / maxXP) * 100));
+
+      let levelText = `Level 1 · Seedling Recruit`;
+      let nextText = `${Math.max(0, 150 - xp)} XP to Trail Guardian`;
+      if (xp >= 500) {
+        levelText = `Level 4 · Santa Ana Eco-Champion`;
+        nextText = `Maximum Rank Reached!`;
+      } else if (xp >= 325) {
+        levelText = `Level 3 · Canopy Defender`;
+        nextText = `${500 - xp} XP to Eco-Champion`;
+      } else if (xp >= 150) {
+        levelText = `Level 2 · Trail Guardian`;
+        nextText = `${325 - xp} XP to Canopy Defender`;
+      }
+
+      const levelTag = document.getElementById(`hud-level-tag`);
+      const xpDisp = document.getElementById(`hud-xp-display`);
+      const nextEl = document.getElementById(`hud-next-level`);
+      const fillEl = document.getElementById(`xp-fill`);
+      const barEl = document.getElementById(`xp-progressbar`);
+
+      if (levelTag) levelTag.textContent = levelText;
+      if (xpDisp) xpDisp.textContent = `${xp} / ${maxXP} XP`;
+      if (nextEl) nextEl.textContent = nextText;
+      if (fillEl) fillEl.style.width = `${pct}%`;
+      if (barEl) barEl.setAttribute(`aria-valuenow`, String(xp));
+
+      const badges = computeBadges();
+      const badgeMap = {
+        recruit: document.getElementById(`badge-recruit`),
+        modal: document.getElementById(`badge-modal`),
+        scout: document.getElementById(`badge-scout`),
+        inclusion: document.getElementById(`badge-inclusion`),
+        champion: document.getElementById(`badge-champion`)
+      };
+      Object.keys(badgeMap).forEach(k => {
+        const el = badgeMap[k];
+        if (el) {
+          if (badges[k]) el.classList.add(`is-unlocked`);
+          else el.classList.remove(`is-unlocked`);
+        }
+      });
+
+      // Update Almanac cells
+      const strip = document.getElementById(`almanac-strip`);
+      if (strip) {
+        const cells = strip.querySelectorAll(`.season-cell`);
+        const states = [
+          appState.briefingAccepted,
+          badges.recruit,
+          appState.completedStations.length >= 2,
+          badges.modal,
+          Object.keys(appState.rubricScores).length === RUBRIC_ROWS.length,
+          appState.evidence.logged
+        ];
+        cells.forEach((cell, i) => {
+          cell.classList.remove(`is-prep`, `is-peak`);
+          if (states[i]) cell.classList.add(`is-peak`);
+          else if (i === 0 || (i > 0 && states[i - 1])) cell.classList.add(`is-prep`);
+        });
+      }
+
+      const ackBtn = document.getElementById(`briefing-ack-btn`);
+      if (ackBtn) {
+        if (appState.briefingAccepted) {
+          ackBtn.textContent = `Mission Briefing Accepted (+25 XP)`;
+          ackBtn.disabled = true;
+        } else {
+          ackBtn.textContent = `Accept Mission Briefing (+25 XP)`;
+          ackBtn.disabled = false;
+        }
+      }
+    }
+
+    function jumpToSection(id) {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: `smooth`, block: `start` });
+      }
+    }
+
+    function updatePlayerProfile() {
+      const nameInput = document.getElementById(`player-name-input`);
+      const squadSel = document.getElementById(`squad-select`);
+      if (nameInput) appState.playerName = nameInput.value;
+      if (squadSel) appState.squadIndex = Number(squadSel.value) || 0;
+      renderLeaderboard();
+      renderEvidencePreview();
+      persistState();
+    }
+
+    function acknowledgeBriefing() {
+      if (appState.briefingAccepted) return;
+      appState.briefingAccepted = true;
+      syncSquadScoreFromUser(25);
+      renderHUD();
+      renderLeaderboard();
+      showHudToast(`+25 XP! Briefing accepted—head to Pre-Class Prep.`);
+      persistState();
+    }
+
+    function speakText(text, btn) {
+      if (typeof window !== `undefined` && `speechSynthesis` in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance(text);
+          utter.lang = `en-US`;
+          utter.rate = 0.9;
+          window.speechSynthesis.speak(utter);
+          if (btn) {
+            const orig = btn.dataset.label || btn.textContent;
+            btn.dataset.label = orig;
+            btn.textContent = `Speaking…`;
+            setTimeout(() => {
+              if (btn) btn.textContent = orig;
+            }, 1400);
+          }
+          return;
+        } catch (e) {
+          // Fallback below
+        }
+      }
+      if (btn) {
+        const orig = btn.dataset.label || btn.textContent;
+        btn.dataset.label = orig;
+        btn.textContent = `Read aloud: "${text.slice(0, 22)}…"`;
+        setTimeout(() => {
+          if (btn) btn.textContent = orig;
+        }, 1800);
+      }
+    }
+
+    function renderVocab(filterCat) {
+      const grid = document.getElementById(`vocab-grid`);
+      if (!grid) return;
+      const items = filterCat === `all` ? VOCAB_DATA : VOCAB_DATA.filter(v => v.category === filterCat);
+      grid.innerHTML = items.map(item => `
+        <article class="vocab-card">
+          <div class="btn-row" style="justify-content: space-between;">
+            <span class="tag ${item.category === `modal` ? `tag-ochre` : `tag-leaf`}">${item.category === `modal` ? `Modal Power` : `Eco-Term`}</span>
+            <span class="vocab-stress">${item.stress}</span>
+          </div>
+          <h3 class="subhead">${item.term}</h3>
+          <p class="prose" style="font-size: 0.94rem;">${item.meaning}</p>
+          <p class="prose" style="font-size: 0.9rem; color: var(--on-surface); background: var(--background); padding: var(--space-sm); border-radius: var(--rounded);">
+            <em>"${item.example}"</em>
+          </p>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="speakText(\`${item.term}. ${item.example}\`, this)">
+            <i data-lucide="volume-2" aria-hidden="true"></i> Listen &amp; Repeat
+          </button>
+        </article>
+      `).join(``);
+      refreshIcons();
+    }
+
+    function filterVocab(cat, btn) {
+      const bar = btn ? btn.parentElement : null;
+      if (bar) {
+        bar.querySelectorAll(`.filter-chip`).forEach(c => c.classList.remove(`is-active`));
+      }
+      if (btn) btn.classList.add(`is-active`);
+      renderVocab(cat);
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById(`quiz-container`);
+      if (!container) return;
+      let correctCount = 0;
+      container.innerHTML = QUIZ_DATA.map(q => {
+        const picked = appState.quizAnswers[q.id];
+        const hasPicked = typeof picked === `number`;
+        const isRight = picked === q.correct;
+        if (isRight) correctCount += 1;
+
+        const optsHtml = q.options.map((opt, idx) => {
+          let cls = `quiz-option`;
+          if (hasPicked && idx === q.correct) cls += ` is-correct`;
+          else if (hasPicked && idx === picked && idx !== q.correct) cls += ` is-wrong`;
+          return `
+            <button type="button" class="${cls}" onclick="answerQuiz('${q.id}', ${idx})">
+              <span>${opt}</span>
+              ${hasPicked && idx === q.correct ? `<i data-lucide="check" aria-hidden="true"></i>` : ``}
+            </button>
+          `;
+        }).join(``);
+
+        return `
+          <div style="display: grid; gap: var(--space-xs); padding: var(--space-md); background: var(--background); border-radius: var(--rounded);">
+            <strong>${q.prompt}</strong>
+            <div style="display: grid; gap: var(--space-xs); margin-top: var(--space-xs);">${optsHtml}</div>
+            <div class="quiz-feedback ${hasPicked ? `is-visible ${isRight ? `is-positive` : `is-warning`}` : ``}">
+              ${hasPicked ? (isRight ? `Correct (+30 XP): ${q.explanation}` : `Try again! Hint: ${q.explanation}`) : ``}
+            </div>
+          </div>
+        `;
+      }).join(``);
+
+      const pill = document.getElementById(`quiz-score-pill`);
+      if (pill) {
+        pill.textContent = `${correctCount} / 5 Correct`;
+        if (correctCount >= 4) {
+          pill.className = `tag tag-leaf`;
+        } else {
+          pill.className = `tag tag-ochre`;
+        }
+      }
+      refreshIcons();
+    }
+
+    function answerQuiz(qId, idx) {
+      const q = QUIZ_DATA.find(item => item.id === qId);
+      if (!q) return;
+      const wasCorrect = appState.quizAnswers[qId] === q.correct;
+      appState.quizAnswers[qId] = idx;
+      const nowCorrect = idx === q.correct;
+
+      if (!wasCorrect && nowCorrect) {
+        syncSquadScoreFromUser(30);
+        const badges = computeBadges();
+        if (badges.recruit) {
+          showHudToast(`Recruit Badge Unlocked! +30 XP earned.`);
+        } else {
+          showHudToast(`+30 XP earned in Pre-Class Challenge!`);
+        }
+      } else if (wasCorrect && !nowCorrect) {
+        syncSquadScoreFromUser(-30);
+      }
+
+      renderQuiz();
+      renderHUD();
+      renderLeaderboard();
+      persistState();
+    }
+
+    function selectStation(idx) {
+      currentStationIdx = idx;
+      const st = STATIONS_DATA[idx];
+      if (!st) return;
+
+      for (let i = 0; i < STATIONS_DATA.length; i += 1) {
+        const zone = document.getElementById(`map-zone-${i}`);
+        if (zone) {
+          if (i === idx) zone.classList.add(`is-selected`);
+          else zone.classList.remove(`is-selected`);
+        }
+      }
+
+      const badgeEl = document.getElementById(`st-badge`);
+      const titleEl = document.getElementById(`st-title`);
+      const dilEl = document.getElementById(`st-dilemma`);
+      const promptsEl = document.getElementById(`st-prompts`);
+      const compBtn = document.getElementById(`complete-station-btn`);
+
+      if (badgeEl) badgeEl.textContent = st.badge;
+      if (titleEl) titleEl.textContent = st.title;
+      if (dilEl) dilEl.textContent = st.dilemma;
+      if (promptsEl) {
+        promptsEl.innerHTML = st.prompts.map(p => `<li>${p}</li>`).join(``);
+      }
+      if (compBtn) {
+        const done = appState.completedStations.includes(idx);
+        if (done) {
+          compBtn.textContent = `Mission Completed (+100 XP)`;
+          compBtn.className = `btn btn-secondary`;
+        } else {
+          compBtn.textContent = `Complete Oral Mission (+100 XP)`;
+          compBtn.className = `btn btn-primary`;
+        }
+      }
+    }
+
+    function updateStationMarkers() {
+      for (let i = 0; i < STATIONS_DATA.length; i += 1) {
+        const zone = document.getElementById(`map-zone-${i}`);
+        if (zone) {
+          if (appState.completedStations.includes(i)) zone.classList.add(`is-done`);
+          else zone.classList.remove(`is-done`);
+        }
+      }
+      const countTag = document.getElementById(`stations-count-tag`);
+      if (countTag) {
+        countTag.textContent = `${appState.completedStations.length} / 4 Stations Cleared`;
+      }
+    }
+
+    function toggleCompleteStation() {
+      const idx = currentStationIdx;
+      const pos = appState.completedStations.indexOf(idx);
+      if (pos === -1) {
+        appState.completedStations.push(idx);
+        syncSquadScoreFromUser(100);
+        showHudToast(`Station 0${idx + 1} cleared! +100 XP added to your squad.`);
+      } else {
+        appState.completedStations.splice(pos, 1);
+        syncSquadScoreFromUser(-100);
+      }
+      updateStationMarkers();
+      selectStation(idx);
+      renderHUD();
+      renderLeaderboard();
+      persistState();
+    }
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, `0`)}:${String(s).padStart(2, `0`)}`;
+    }
+
+    function toggleStationTimer() {
+      const btn = document.getElementById(`timer-toggle-btn`);
+      const disp = document.getElementById(`timer-display`);
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        if (btn) btn.textContent = `Resume Sprint`;
+        return;
+      }
+      if (btn) btn.textContent = `Pause Timer`;
+      timerInterval = setInterval(() => {
+        if (timerSeconds > 0) {
+          timerSeconds -= 1;
+          if (disp) disp.textContent = formatTime(timerSeconds);
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          if (btn) btn.textContent = `Time Up!`;
+          showHudToast(`3-Minute Oral Sprint finished—share your squad’s proposal!`);
+        }
+      }, 1000);
+    }
+
+    function resetStationTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      timerSeconds = 180;
+      const disp = document.getElementById(`timer-display`);
+      const btn = document.getElementById(`timer-toggle-btn`);
+      if (disp) disp.textContent = `03:00`;
+      if (btn) btn.textContent = `Start 3-Min Sprint`;
+    }
+
+    function renderRoles() {
+      const grid = document.getElementById(`roles-grid`);
+      if (!grid) return;
+      grid.innerHTML = ROLES_DATA.map(r => {
+        const active = appState.selectedRole === r.id;
+        return `
+          <div class="card ${active ? `is-leaf-highlight` : `is-interactive`}" style="${active ? `` : `background: var(--background);`}">
+            <div class="btn-row" style="justify-content: space-between;">
+              <span class="tag tag-ochre">${r.focus}</span>
+              <i data-lucide="${r.icon}" aria-hidden="true"></i>
+            </div>
+            <h4 class="subhead" style="margin-top: var(--space-sm);">${r.title}</h4>
+            <p class="prose" style="font-size: 0.92rem; margin-top: var(--space-xs);">${r.task}</p>
+            <p class="prose" style="font-size: 0.88rem; margin-top: var(--space-xs);"><em>Starter: ${r.starter}</em></p>
+            <button type="button" class="btn ${active ? `btn-primary` : `btn-secondary`} btn-sm" style="margin-top: var(--space-sm); width: 100%;" onclick="chooseRole('${r.id}')">
+              ${active ? `Role Active (+25 XP)` : `Choose ${r.title}`}
+            </button>
+          </div>
+        `;
+      }).join(``);
+      refreshIcons();
+    }
+
+    function chooseRole(roleId) {
+      const hadRole = Boolean(appState.selectedRole);
+      appState.selectedRole = roleId;
+      if (!hadRole) {
+        syncSquadScoreFromUser(25);
+        showHudToast(`+25 XP! Peer role active—Inclusion Ally badge progress updated.`);
+      }
+      renderRoles();
+      renderHUD();
+      renderLeaderboard();
+      persistState();
+    }
+
+    function renderLeaderboard() {
+      const list = document.getElementById(`leaderboard-list`);
+      if (!list) return;
+      const maxBoardXP = Math.max(300, ...appState.squadBoardXP);
+      const userIdx = Number(appState.squadIndex) || 0;
+
+      list.innerHTML = SQUAD_NAMES.map((name, i) => {
+        const pts = appState.squadBoardXP[i] || 0;
+        const pct = Math.min(100, Math.round((pts / maxBoardXP) * 100));
+        const isUser = i === userIdx;
+        return `
+          <div class="squad-row ${isUser ? `is-user-squad` : ``} ${i % 2 === 1 ? `is-alt` : ``}">
+            <div style="font-weight: 700; font-size: 0.94rem;">
+              ${name} ${isUser ? `<span class="tag tag-leaf" style="margin-left: var(--space-xs);">You</span>` : ``}
+            </div>
+            <div class="squad-bar-track" aria-label="${name} XP bar">
+              <div class="squad-bar-fill" style="width: ${pct}%;"></div>
+            </div>
+            <div class="btn-row">
+              <strong style="font-family: var(--font-label); min-width: 68px; text-align: right;">${pts} XP</strong>
+              <button type="button" class="btn btn-secondary btn-sm" aria-label="Add 25 XP to ${name}" onclick="adjustSquadXP(${i}, 25)">+25</button>
+              <button type="button" class="btn btn-secondary btn-sm" aria-label="Subtract 25 XP from ${name}" onclick="adjustSquadXP(${i}, -25)">-25</button>
+            </div>
+          </div>
+        `;
+      }).join(``);
+    }
+
+    function adjustSquadXP(idx, delta) {
+      appState.squadBoardXP[idx] = Math.max(0, (appState.squadBoardXP[idx] || 0) + delta);
+      renderLeaderboard();
+      persistState();
+    }
+
+    let currentScaffoldFilter = `all`;
+    function renderScaffolds() {
+      const grid = document.getElementById(`scaffolds-grid`);
+      if (!grid) return;
+      const items = currentScaffoldFilter === `all`
+        ? SCAFFOLDS_DATA
+        : SCAFFOLDS_DATA.filter(s => s.fn === currentScaffoldFilter);
+
+      grid.innerHTML = items.map(s => `
+        <div class="card is-interactive" style="display: grid; gap: var(--space-sm);">
+          <div class="btn-row" style="justify-content: space-between;">
+            <span class="tag ${s.fn === `must` ? `tag-ochre` : `tag-leaf`}">${s.tag}</span>
+          </div>
+          <p style="margin: 0; font-size: 1.05rem; font-weight: 700; color: var(--on-surface);">“${s.en}”</p>
+          ${appState.l1Visible ? `<p class="prose" style="font-size: 0.9rem; background: var(--background); padding: var(--space-xs) var(--space-sm); border-radius: var(--rounded);">ES Hint: ${s.es}</p>` : ``}
+          <button type="button" class="btn btn-secondary btn-sm" onclick="speakText(\`${s.en}\`, this)">
+            <i data-lucide="volume-2" aria-hidden="true"></i> Hear Phrase
+          </button>
+        </div>
+      `).join(``);
+      refreshIcons();
+    }
+
+    function filterScaffolds(fn, btn) {
+      currentScaffoldFilter = fn;
+      const bar = btn ? btn.parentElement : null;
+      if (bar) bar.querySelectorAll(`.filter-chip`).forEach(c => c.classList.remove(`is-active`));
+      if (btn) btn.classList.add(`is-active`);
+      renderScaffolds();
+    }
+
+    function toggleL1Hints() {
+      appState.l1Visible = !appState.l1Visible;
+      const btn = document.getElementById(`l1-toggle-btn`);
+      if (btn) {
+        btn.textContent = appState.l1Visible ? `Hide A2 Support Hints (ES)` : `Show A2 Support Hints (ES)`;
+      }
+      renderScaffolds();
+      renderHUD();
+      persistState();
+    }
+
+    function getForgedParts() {
+      const subj = document.getElementById(`forge-subject`);
+      const mod = document.getElementById(`forge-modal`);
+      const act = document.getElementById(`forge-action`);
+      const plc = document.getElementById(`forge-place`);
+      return {
+        subject: subj ? subj.value : `Our squad`,
+        modal: mod ? mod.value : `should`,
+        action: act ? act.value : `separate paper and plastic`,
+        place: plc ? plc.value : `in the main courtyard`
+      };
+    }
+
+    function updateForgedSentence() {
+      const p = getForgedParts();
+      const preview = document.getElementById(`forged-preview`);
+      if (preview) {
+        preview.innerHTML = `${p.subject} <span class="modal-highlight">${p.modal}</span> ${p.action} ${p.place}.`;
+      }
+    }
+
+    function speakForgedSentence() {
+      const p = getForgedParts();
+      speakText(`${p.subject} ${p.modal} ${p.action} ${p.place}.`, null);
+    }
+
+    function renderSavedSentences() {
+      const list = document.getElementById(`saved-sentences-list`);
+      const countEl = document.getElementById(`forged-count-label`);
+      if (countEl) {
+        countEl.textContent = `${appState.savedSentences.length} / 2 Saved for Badge`;
+      }
+      if (list) {
+        if (appState.savedSentences.length === 0) {
+          list.innerHTML = `<li>No sentences saved yet—assemble a proposal above and save it to rehearse!</li>`;
+        } else {
+          list.innerHTML = appState.savedSentences.map(s => `<li><strong>${s}</strong></li>`).join(``);
+        }
+      }
+    }
+
+    function saveForgedSentence() {
+      const p = getForgedParts();
+      const full = `${p.subject} ${p.modal} ${p.action} ${p.place}.`;
+      if (appState.savedSentences.includes(full)) {
+        showHudToast(`That sentence is already in your speaking script!`);
+        return;
+      }
+      appState.savedSentences.push(full);
+      if (appState.savedSentences.length <= 4) {
+        syncSquadScoreFromUser(25);
+      }
+      renderSavedSentences();
+      renderHUD();
+      renderLeaderboard();
+      showHudToast(appState.savedSentences.length === 2
+        ? `Modal Master Badge Unlocked! +25 XP earned.`
+        : `Sentence saved to script (+25 XP).`);
+      persistState();
+    }
+
+    function setRubricMode(mode, btn) {
+      appState.rubricMode = mode;
+      const bar = btn ? btn.parentElement : null;
+      if (bar) bar.querySelectorAll(`.filter-chip`).forEach(c => c.classList.remove(`is-active`));
+      if (btn) btn.classList.add(`is-active`);
+      const label = document.getElementById(`rubric-mode-label`);
+      if (label) label.textContent = `Mode: ${mode}`;
+      persistState();
+    }
+
+    function renderRubric() {
+      const tbody = document.getElementById(`rubric-tbody`);
+      if (!tbody) return;
+      tbody.innerHTML = RUBRIC_ROWS.map(row => {
+        const picked = appState.rubricScores[row.id];
+        const cells = row.levels.map((desc, idx) => {
+          const pts = idx + 1;
+          const isPicked = picked === pts;
+          return `
+            <td>
+              <button type="button" class="rubric-cell-btn ${isPicked ? `is-picked` : ``}" onclick="pickRubric('${row.id}', ${pts})">
+                ${desc}
+              </button>
+            </td>
+          `;
+        }).join(``);
+        return `
+          <tr>
+            <th scope="row">${row.criterion}</th>
+            ${cells}
+          </tr>
+        `;
+      }).join(``);
+
+      const vals = Object.values(appState.rubricScores);
+      const total = vals.reduce((a, b) => a + b, 0);
+      const scoreEl = document.getElementById(`rubric-score-display`);
+      const fbEl = document.getElementById(`rubric-feedback-text`);
+      if (scoreEl) scoreEl.textContent = `${total} / 16 pts`;
+      if (fbEl) {
+        if (vals.length < RUBRIC_ROWS.length) {
+          fbEl.textContent = `Selected ${vals.length} of 4 criteria. Complete all rows for your formative feedback summary.`;
+        } else if (total >= 14) {
+          fbEl.textContent = `Canopy Champion Performance! Strong command of modals, eco-vocabulary, and inclusive squad speaking.`;
+        } else if (total >= 10) {
+          fbEl.textContent = `Sapling Progress: Clear A2 communication! Keep practicing stress on multi-syllable eco-words.`;
+        } else {
+          fbEl.textContent = `Growing Sprout: Use the UDL Phrase Cards and Sentence Forge before your next pitch—you can do it!`;
+        }
+      }
+    }
+
+    function pickRubric(rowId, pts) {
+      appState.rubricScores[rowId] = pts;
+      renderRubric();
+      renderHUD();
+      persistState();
+    }
+
+    function updateEvidence() {
+      const p1 = document.getElementById(`ev-prop-1`);
+      const p2 = document.getElementById(`ev-prop-2`);
+      const p3 = document.getElementById(`ev-prop-3`);
+      const ref = document.getElementById(`ev-reflection`);
+      appState.evidence.prop1 = p1 ? p1.value : ``;
+      appState.evidence.prop2 = p2 ? p2.value : ``;
+      appState.evidence.prop3 = p3 ? p3.value : ``;
+      appState.evidence.reflection = ref ? ref.value : ``;
+      renderEvidencePreview();
+      persistState();
+    }
+
+    function renderEvidencePreview() {
+      const box = document.getElementById(`evidence-preview-box`);
+      if (!box) return;
+      const name = appState.playerName.trim() || `Unnamed Eco-Warrior`;
+      const squad = SQUAD_NAMES[appState.squadIndex] || SQUAD_NAMES[0];
+      const xp = computeUserXP();
+      const totalRubric = Object.values(appState.rubricScores).reduce((a, b) => a + b, 0);
+
+      box.innerHTML = `
+        <p style="margin: 0;"><strong>Explorer:</strong> ${name} · <strong>${squad}</strong></p>
+        <p style="margin: 0;"><strong>Mission Score:</strong> ${xp} XP · <strong>Rubric (${appState.rubricMode}):</strong> ${totalRubric}/16 pts</p>
+        <ol style="margin: var(--space-xs) 0 0 0; padding-left: 1.25rem; color: var(--on-surface);">
+          <li><strong>SHOULD:</strong> ${appState.evidence.prop1.trim() || `<em>Pending proposal 1…</em>`}</li>
+          <li><strong>MUST:</strong> ${appState.evidence.prop2.trim() || `<em>Pending proposal 2…</em>`}</li>
+          <li><strong>CAN:</strong> ${appState.evidence.prop3.trim() || `<em>Pending proposal 3…</em>`}</li>
+        </ol>
+        <p style="margin: var(--space-xs) 0 0 0;"><strong>Speaking Reflection:</strong> ${appState.evidence.reflection.trim() || `<em>Add your reflection on the left…</em>`}</p>
+      `;
+    }
+
+    function saveEvidenceLog() {
+      const status = document.getElementById(`evidence-status`);
+      if (!appState.evidence.prop1.trim() || !appState.evidence.prop2.trim() || !appState.evidence.prop3.trim()) {
+        if (status) {
+          status.textContent = `Please fill in all 3 eco-proposals (should, must, can) before logging evidence.`;
+          status.classList.add(`is-visible`);
+        }
+        return;
+      }
+      const wasLogged = appState.evidence.logged;
+      appState.evidence.logged = true;
+      if (!wasLogged) {
+        syncSquadScoreFromUser(50);
+      }
+      if (status) {
+        status.textContent = `Evidence logged! ${wasLogged ? `Updated.` : `+50 XP claimed.`}`;
+        status.classList.add(`is-visible`);
+      }
+      renderHUD();
+      renderLeaderboard();
+      renderEvidencePreview();
+      persistState();
+    }
+
+    function exportEvidenceReport() {
+      const name = appState.playerName.trim() || `Unnamed Eco-Warrior`;
+      const squad = SQUAD_NAMES[appState.squadIndex] || SQUAD_NAMES[0];
+      const xp = computeUserXP();
+      const badges = computeBadges();
+      const unlockedList = Object.keys(badges).filter(k => badges[k]).join(`, `) || `None yet`;
+      const totalRubric = Object.values(appState.rubricScores).reduce((a, b) => a + b, 0);
+
+      const content = [
+        `IED SANTA ANA (BARBOSA, SANTANDER) - TEACHER ANA MARIA`,
+        `7TH GRADE EFL (A2) - ECO-WARRIORS MISSION EVIDENCE REPORT`,
+        `=========================================================`,
+        `Explorer: ${name}`,
+        `Squad: ${squad}`,
+        `Total XP: ${xp} / 600 XP`,
+        `Unlocked Badges: ${unlockedList}`,
+        `Completed Green Stations: ${appState.completedStations.map(i => STATIONS_DATA[i].title).join(`; `) || `None`}`,
+        ``,
+        `THREE SPOKEN ECO-PROPOSALS:`,
+        `1. [SHOULD] ${appState.evidence.prop1 || `(Not entered)`}`,
+        `2. [MUST]   ${appState.evidence.prop2 || `(Not entered)`}`,
+        `3. [CAN]    ${appState.evidence.prop3 || `(Not entered)`}`,
+        ``,
+        `SAVED SPEAKING SCRIPT SENTENCES:`,
+        ...(appState.savedSentences.length ? appState.savedSentences.map(s => `- ${s}`) : [`- None saved`]),
+        ``,
+        `FORMATIVE SPEAKING RUBRIC (${appState.rubricMode}): ${totalRubric} / 16 pts`,
+        `SPEAKING REFLECTION: ${appState.evidence.reflection || `(Not entered)`}`
+      ].join(`\n`);
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `santa-ana-eco-warriors-evidence.txt`
+        });
+      }
+    }
+
+    function handleResetProgress(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Click again to confirm reset`;
+        setTimeout(() => {
+          if (btn && btn.dataset.armed === `true`) {
+            btn.dataset.armed = `false`;
+            btn.textContent = `Reset Progress`;
+          }
+        }, 4000);
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `Reset Progress`;
+      appState = {
+        playerName: ``,
+        squadIndex: 0,
+        briefingAccepted: false,
+        quizAnswers: {},
+        completedStations: [],
+        selectedRole: ``,
+        l1Visible: false,
+        savedSentences: [],
+        rubricMode: `Self-Assessment`,
+        rubricScores: {},
+        evidence: { prop1: ``, prop2: ``, prop3: ``, reflection: ``, logged: false },
+        squadBoardXP: [0, 0, 0, 0, 0, 0, 0, 0]
+      };
+      restoreDOMInputs();
+      renderAll();
+      showHudToast(`Mission progress reset to fresh start.`);
+      persistState();
+    }
+
+    function restoreDOMInputs() {
+      const nameInput = document.getElementById(`player-name-input`);
+      const squadSel = document.getElementById(`squad-select`);
+      const p1 = document.getElementById(`ev-prop-1`);
+      const p2 = document.getElementById(`ev-prop-2`);
+      const p3 = document.getElementById(`ev-prop-3`);
+      const ref = document.getElementById(`ev-reflection`);
+      const l1Btn = document.getElementById(`l1-toggle-btn`);
+
+      if (nameInput) nameInput.value = appState.playerName || ``;
+      if (squadSel) squadSel.value = String(appState.squadIndex || 0);
+      if (p1) p1.value = appState.evidence.prop1 || ``;
+      if (p2) p2.value = appState.evidence.prop2 || ``;
+      if (p3) p3.value = appState.evidence.prop3 || ``;
+      if (ref) ref.value = appState.evidence.reflection || ``;
+      if (l1Btn) l1Btn.textContent = appState.l1Visible ? `Hide A2 Support Hints (ES)` : `Show A2 Support Hints (ES)`;
+    }
+
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+    }
+
+    function renderAll() {
+      renderHUD();
+      renderVocab(`all`);
+      renderQuiz();
+      updateStationMarkers();
+      selectStation(currentStationIdx);
+      renderRoles();
+      renderLeaderboard();
+      renderScaffolds();
+      updateForgedSentence();
+      renderSavedSentences();
+      renderRubric();
+      renderEvidencePreview();
+      refreshIcons();
+    }
+
+    function setupScrollReveal() {
+      if (!(`IntersectionObserver` in window)) return;
+      const items = document.querySelectorAll(`.reveal-item`);
+      items.forEach(el => el.classList.add(`is-hidden`));
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove(`is-hidden`);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      items.forEach(el => observer.observe(el));
+    }
+
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            appState = {
+              ...appState,
+              ...saved,
+              evidence: { ...appState.evidence, ...(saved.evidence || {}) }
+            };
+          }
+        }
+      } catch (e) {
+        // Start fresh if state unavailable
+      }
+      restoreDOMInputs();
+      renderAll();
+      setupScrollReveal();
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>
